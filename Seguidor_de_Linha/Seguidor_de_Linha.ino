@@ -44,6 +44,7 @@ void calibrate()
  //calcula os deslocamentos para os sensores esquerdo e direito
  leftOffset = 150;
  rightOffset = 150;
+ centre = 150;
 }
 
 void setup()
@@ -69,7 +70,7 @@ void loop()
 
   //le os sensores e adiciona os deslocamentos
   SENSOR1 = analogRead(8) + leftOffset;
-  SENSOR2 = analogRead(9);
+  SENSOR2 = analogRead(9) + centre;
   SENSOR3 = analogRead(10) + rightOffset;
   //////////////////////////////////////////////
 
