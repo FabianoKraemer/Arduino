@@ -21,7 +21,17 @@ int threshold = 50;
 //velocidades iniciais dos motores esquerdo e direito
 int left = startSpeed, right = startSpeed;
 
+// variavel pra fazer a média dos sensores, usado na detecção de cruzamentos
 int somasensores = 0;
+
+// vetor pra tomar decisão em cruzamentos
+int rota[] = {1, 2, 3, 0, 0};
+int n = 0;
+
+// 1 >> vira para a direita
+// 2 >> vai reto
+// 3 >> vira para a esquerda
+// 0 >> para
 
 //Rotina de calibracao do sensor
 void calibrate()
@@ -79,13 +89,71 @@ void loop()
   somasensores = SENSOR1 + SENSOR2 + SENSOR3;
   somasensores = somasensores / 3;
 
+  rota[0] = 1;
+  rota[1] = 2;
+  rota[2] = 3;
+  rota[3] = 0;
+  
   if (somasensores > 850){
-      left = 98;
-      right = 98;
-      motor_esq.setSpeed(left);
-      motor_esq.run(FORWARD);
-      motor_dir.setSpeed(right);
-      motor_dir.run(BACKWARD);    
+      Serial.println("Cruzamento");
+      /*
+      while(rota[n] != 0){
+      if(rota[n] == 1){
+          Serial.println("Virando para direita");
+          left = 98;
+          right = 98;
+          motor_esq.setSpeed(left);
+          motor_esq.run(FORWARD);
+          motor_dir.setSpeed(right);
+          motor_dir.run(BACKWARD);         
+          n++;
+          delay(600);
+          break;
+      }
+      if(rota[n] == 3){
+          Serial.println("Virando para esquerda");
+          left = 98;
+          right = 98;
+          motor_esq.setSpeed(left);
+          motor_esq.run(BACKWARD);
+          motor_dir.setSpeed(right);
+          motor_dir.run(FORWARD);
+          n++;
+          delay(600);
+          break;
+      }
+      if(rota[n] == 2){
+          Serial.println("Seguindo reto");
+          left = 142;
+          right = 142;
+          motor_esq.setSpeed(left);
+          motor_esq.run(FORWARD);
+          motor_dir.setSpeed(right);
+          motor_dir.run(FORWARD);         
+          n++;
+          delay(600);
+          break;
+      }
+      if(rota[n] == 0){
+          Serial.println("Fim das rotas, parando");
+          left = 0;
+          right = 0;
+          motor_esq.setSpeed(left);
+          motor_esq.run(FORWARD);
+          motor_dir.setSpeed(right);
+          motor_dir.run(FORWARD);         
+          n++;
+          delay(600);
+          break;
+        }
+    }*/
+    Serial.println("Virando para direita");
+          left = 98;
+          right = 98;
+          motor_esq.setSpeed(left);
+          motor_esq.run(FORWARD);
+          motor_dir.setSpeed(right);
+          motor_dir.run(BACKWARD);  
   }
   //////////////////////////////////////////////
 
@@ -165,5 +233,4 @@ void loop()
 }
 
 // testar saida dos sensores 
-
 
